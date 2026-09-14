@@ -4,7 +4,7 @@ import { DEFAULTS, DOOR } from "../config";
 import type { FoldVariantProps } from "./fold-carousel.types";
 import { FoldFace } from "./fold-face";
 import { FoldStage } from "./fold-stage";
-import { panels } from "./panels.utils";
+import { BODY_CLIP, panels } from "./panels.utils";
 import { SlideLayer } from "./slide-layer";
 import { smoothstep } from "./smoothstep.utils";
 import { LEAF_TURN, useLeaf } from "./use-leaf";
@@ -38,12 +38,6 @@ export function FoldDoor({
   // No overhang: the outgoing leaf's back already paints over this hinge edge. With one, a
   // pixel of the incoming slide would sit on the still half for the first part of the turn.
   const incomingLeaf = useLeaf(incomingAngle, { depth, overhang: false });
-  // Hidden at rest. The faces' clipped edges are soft, and a black body with the same edges
-  // shows through them as a dark hairline. It is only needed as bezel mid-turn.
-  const bodyOpacity = useTransform(() => {
-    const value = progress.get();
-    return value > 0 && value < 1 ? 1 : 0;
-  });
 
   const face = {
     layerWidth: outgoingLeaf.layerWidth,
@@ -58,7 +52,7 @@ export function FoldDoor({
       <motion.div
         style={{
           rotateY: incomingAngle,
-          opacity: bodyOpacity,
+          clipPath: BODY_CLIP,
           ...half,
           right: "50%",
         }}
@@ -68,12 +62,12 @@ export function FoldDoor({
       {/* The outgoing leaf's body. Black, so the slivers the magnified fold reaches past the
           screen read as bezel. */}
       <motion.div
-        style={{ rotateY: outgoingAngle, opacity: bodyOpacity, ...half }}
+        style={{ rotateY: outgoingAngle, clipPath: BODY_CLIP, ...half }}
         className="origin-right bg-black"
       />
 
       {/* The still half. */}
-      <div style={half} className="relative overflow-hidden bg-black">
+      <div style={half} className="relative overflow-hidden">
         <SlideLayer
           slide={outgoing}
           left={panels(-1)}

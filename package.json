@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest",
-    "registry:build": "shadcn build"
+    "registry:build": "shadcn build",
+    "hairline": "node scripts/hairline.mts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
@@ -30,6 +31,7 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.5",
+    "playwright-core": "^1.63.0",
     "shadcn": "^4.21.0",
     "tailwindcss": "^4",
     "typescript": "^5",

@@ -8,9 +8,15 @@
 /**
  * How far each face reaches past the hinge, in rem. It covers the fractional pixel where
  * the halves meet, which would otherwise show as a dark hairline down the crease. Absolute,
- * because a device pixel does not shrink with the panel.
+ * because a device pixel does not shrink with the panel. `BODY_CLIP` trims by the same amount.
  */
 export const HINGE_OVERLAP = 0.0625;
+
+/**
+ * A leaf body's clip: trimmed by the hinge overlap on every edge but the hinge. Face edges
+ * are soft, so a black body reaching them shows through as a dark hairline.
+ */
+export const BODY_CLIP = `inset(${HINGE_OVERLAP}rem 0 ${HINGE_OVERLAP}rem ${HINGE_OVERLAP}rem)`;
 
 /** Trims float noise, which lands in a clip path four times per point. */
 function round(value: number) {

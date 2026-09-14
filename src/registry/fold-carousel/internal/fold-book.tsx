@@ -4,7 +4,7 @@ import { DEFAULTS } from "../config";
 import type { FoldVariantProps } from "./fold-carousel.types";
 import { FoldFace } from "./fold-face";
 import { FoldStage } from "./fold-stage";
-import { HINGE_OVERLAP, panels } from "./panels.utils";
+import { BODY_CLIP, HINGE_OVERLAP, panels } from "./panels.utils";
 import { SlideLayer } from "./slide-layer";
 import { smoothstep } from "./smoothstep.utils";
 import { LEAF_TURN, useLeaf } from "./use-leaf";
@@ -27,12 +27,12 @@ export function FoldBook({
 }: FoldVariantProps) {
   const angle = useTransform(() => LEAF_TURN * smoothstep(progress.get()));
   const leaf = useLeaf(angle, { depth });
-  // Hidden at rest. The faces' clipped edges are soft, and a black body with the same edges
-  // shows through them as a dark hairline. It is only needed as bezel mid-turn.
-  const bodyOpacity = useTransform(() => {
-    const value = progress.get();
-    return value > 0 && value < 1 ? 1 : 0;
-  });
+  // At rest the incoming slide's edges sit under the front face's soft edges and tint them.
+  // It fades in over the start of the turn instead, while perspective still magnifies the
+  // leaf past the panel, so it is fully in before any of it is uncovered.
+  const incomingOpacity = useTransform(() =>
+    smoothstep(progress.get(), { from: 0, to: 0.1 }),
+  );
 
   const face = {
     layerWidth: leaf.layerWidth,
@@ -45,8 +45,9 @@ export function FoldBook({
     <FoldStage panelWidth={panelWidth} depth={depth} {...props}>
       {/* The incoming slide's left half, lying still under the fold. It is not turning, so
           it needs no shade or blur. */}
-      <div
+      <motion.div
         style={{
+          opacity: incomingOpacity,
           width: leaf.layerWidth,
           top: leaf.layerInset,
           bottom: leaf.layerInset,
@@ -55,12 +56,12 @@ export function FoldBook({
         className="absolute overflow-hidden"
       >
         <SlideLayer slide={incoming} left={panels(0)} top={leaf.screenTop} />
-      </div>
+      </motion.div>
 
       {/* The leaf's body. Black, so the slivers the magnified fold reaches past the screen
           read as bezel. */}
       <motion.div
-        style={{ rotateY: angle, opacity: bodyOpacity, ...half }}
+        style={{ rotateY: angle, clipPath: BODY_CLIP, ...half }}
         className="origin-right bg-black"
       />
 
@@ -74,7 +75,7 @@ export function FoldBook({
 
       {/* The still half. Painted after the leaf's front so it covers that edge instead of
           meeting it on a fractional pixel. */}
-      <div style={half} className="relative overflow-hidden bg-black">
+      <div style={half} className="relative overflow-hidden">
         <SlideLayer
           slide={outgoing}
           left={panels(-1)}
