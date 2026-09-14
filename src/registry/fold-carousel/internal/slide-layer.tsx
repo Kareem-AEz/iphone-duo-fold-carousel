@@ -8,7 +8,10 @@ type SlideLayerProps = {
   left: string;
   /** Where the slide's top edge sits in the parent, as a CSS length. */
   top: string;
-  /** The one copy screen readers hear. A fold paints each slide about ten times. */
+  /**
+   * The one copy screen readers and Tab can reach. A fold paints each slide 10 to 18 times,
+   * and the rest are `inert`.
+   */
   primary?: boolean;
 };
 
@@ -24,7 +27,7 @@ export function SlideLayer({
 }: SlideLayerProps) {
   return (
     <div
-      aria-hidden={primary ? undefined : true}
+      inert={!primary}
       style={{ left, top, width: panels(2), height: panels(1) }}
       // Cancels the stage's mirror for the slide itself, so only the geometry flips.
       className="absolute in-[[data-mirrored]]:-scale-x-100"

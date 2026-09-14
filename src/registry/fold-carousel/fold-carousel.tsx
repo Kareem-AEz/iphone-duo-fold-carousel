@@ -61,6 +61,7 @@ export function FoldCarousel({
   duration = DEFAULTS.duration,
   defaultIndex = 0,
   onIndexChange,
+  className,
   children,
   ...props
 }: FoldCarouselProps) {
@@ -113,7 +114,12 @@ export function FoldCarousel({
         role="region"
         aria-roledescription="carousel"
         data-slot="fold-carousel"
+        // Focusable by click but not by Tab, so arrow keys work after clicking a slide.
+        // Without `outline-none` Chrome rings the whole carousel on the first key press, and
+        // the fold is feedback enough.
+        tabIndex={-1}
         onKeyDownCapture={handleKeyDown}
+        className={cn("outline-none", className)}
         {...props}
       >
         {children}
@@ -183,7 +189,11 @@ export function FoldCarouselPrevious({
       size={size}
       disabled={!canPrev}
       focusableWhenDisabled
-      className={cn("data-disabled:opacity-50", className)}
+      // The pseudo-element widens the tap target past the visible button.
+      className={cn(
+        "relative after:absolute after:-inset-1.5 data-disabled:opacity-50",
+        className,
+      )}
       onClick={(event) => {
         onClick?.(event);
         prev();
@@ -217,7 +227,11 @@ export function FoldCarouselNext({
       size={size}
       disabled={!canNext}
       focusableWhenDisabled
-      className={cn("data-disabled:opacity-50", className)}
+      // The pseudo-element widens the tap target past the visible button.
+      className={cn(
+        "relative after:absolute after:-inset-1.5 data-disabled:opacity-50",
+        className,
+      )}
       onClick={(event) => {
         onClick?.(event);
         next();
