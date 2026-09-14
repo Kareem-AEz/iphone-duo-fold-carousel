@@ -28,7 +28,8 @@ export function FoldDoor({
   const outgoingAngle = useTransform(
     () => LEAF_TURN * smoothstep(progress.get()),
   );
-  // Negative, so it swings in from behind the frame rather than reaching out of it.
+  // Negative, so it swings in from behind the frame rather than reaching out of it. Back there
+  // perspective only shrinks it, so its face always covers it and it needs no black body.
   const incomingAngle = useTransform(
     () =>
       DOOR.incomingFrom * (1 - smoothstep(progress.get(), DOOR.incoming)),
@@ -48,17 +49,6 @@ export function FoldDoor({
 
   return (
     <FoldStage panelWidth={panelWidth} depth={depth} {...props}>
-      {/* The incoming leaf's body, edge-on until it swings in. */}
-      <motion.div
-        style={{
-          rotateY: incomingAngle,
-          clipPath: BODY_CLIP,
-          ...half,
-          right: "50%",
-        }}
-        className="absolute origin-right bg-black"
-      />
-
       {/* The outgoing leaf's body. Black, so the slivers the magnified fold reaches past the
           screen read as bezel. */}
       <motion.div
