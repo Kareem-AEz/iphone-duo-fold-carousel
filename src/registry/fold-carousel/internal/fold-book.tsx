@@ -27,6 +27,12 @@ export function FoldBook({
 }: FoldVariantProps) {
   const angle = useTransform(() => LEAF_TURN * smoothstep(progress.get()));
   const leaf = useLeaf(angle, { depth });
+  // Hidden at rest. The faces' clipped edges are soft, and a black body with the same edges
+  // shows through them as a dark hairline. It is only needed as bezel mid-turn.
+  const bodyOpacity = useTransform(() => {
+    const value = progress.get();
+    return value > 0 && value < 1 ? 1 : 0;
+  });
 
   const face = {
     layerWidth: leaf.layerWidth,
@@ -54,7 +60,7 @@ export function FoldBook({
       {/* The leaf's body. Black, so the slivers the magnified fold reaches past the screen
           read as bezel. */}
       <motion.div
-        style={{ rotateY: angle, ...half }}
+        style={{ rotateY: angle, opacity: bodyOpacity, ...half }}
         className="origin-right bg-black"
       />
 

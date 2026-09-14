@@ -38,6 +38,12 @@ export function FoldDoor({
   // No overhang: the outgoing leaf's back already paints over this hinge edge. With one, a
   // pixel of the incoming slide would sit on the still half for the first part of the turn.
   const incomingLeaf = useLeaf(incomingAngle, { depth, overhang: false });
+  // Hidden at rest. The faces' clipped edges are soft, and a black body with the same edges
+  // shows through them as a dark hairline. It is only needed as bezel mid-turn.
+  const bodyOpacity = useTransform(() => {
+    const value = progress.get();
+    return value > 0 && value < 1 ? 1 : 0;
+  });
 
   const face = {
     layerWidth: outgoingLeaf.layerWidth,
@@ -50,14 +56,19 @@ export function FoldDoor({
     <FoldStage panelWidth={panelWidth} depth={depth} {...props}>
       {/* The incoming leaf's body, edge-on until it swings in. */}
       <motion.div
-        style={{ rotateY: incomingAngle, ...half, right: "50%" }}
+        style={{
+          rotateY: incomingAngle,
+          opacity: bodyOpacity,
+          ...half,
+          right: "50%",
+        }}
         className="absolute origin-right bg-black"
       />
 
       {/* The outgoing leaf's body. Black, so the slivers the magnified fold reaches past the
           screen read as bezel. */}
       <motion.div
-        style={{ rotateY: outgoingAngle, ...half }}
+        style={{ rotateY: outgoingAngle, opacity: bodyOpacity, ...half }}
         className="origin-right bg-black"
       />
 
