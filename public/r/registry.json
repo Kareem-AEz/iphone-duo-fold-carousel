@@ -1,0 +1,102 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "fold-carousel",
+  "homepage": "https://github.com/Kareem-AEz/iphone-duo-fold-carousel",
+  "items": [
+    {
+      "name": "fold-carousel",
+      "type": "registry:ui",
+      "title": "Fold Carousel",
+      "description": "A carousel that folds from one slide to the next like a two-panel phone.",
+      "dependencies": ["motion", "lucide-react", "cn"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "src/registry/fold-carousel/fold-carousel.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/fold-carousel/fold-carousel.tsx"
+        },
+        {
+          "path": "src/registry/fold-carousel/use-fold-carousel.ts",
+          "type": "registry:ui",
+          "target": "components/ui/fold-carousel/use-fold-carousel.ts"
+        },
+        {
+          "path": "src/registry/fold-carousel/config.ts",
+          "type": "registry:ui",
+          "target": "components/ui/fold-carousel/config.ts"
+        },
+        {
+          "path": "src/registry/fold-carousel/internal/anchor-fold.utils.ts",
+          "type": "registry:ui",
+          "target": "components/ui/fold-carousel/internal/anchor-fold.utils.ts"
+        },
+        {
+          "path": "src/registry/fold-carousel/internal/face-ramps.utils.ts",
+          "type": "registry:ui",
+          "target": "components/ui/fold-carousel/internal/face-ramps.utils.ts"
+        },
+        {
+          "path": "src/registry/fold-carousel/internal/fold-book.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/fold-carousel/internal/fold-book.tsx"
+        },
+        {
+          "path": "src/registry/fold-carousel/internal/fold-carousel.context.ts",
+          "type": "registry:ui",
+          "target": "components/ui/fold-carousel/internal/fold-carousel.context.ts"
+        },
+        {
+          "path": "src/registry/fold-carousel/internal/fold-carousel.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/fold-carousel/internal/fold-carousel.types.ts"
+        },
+        {
+          "path": "src/registry/fold-carousel/internal/fold-door.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/fold-carousel/internal/fold-door.tsx"
+        },
+        {
+          "path": "src/registry/fold-carousel/internal/fold-face.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/fold-carousel/internal/fold-face.tsx"
+        },
+        {
+          "path": "src/registry/fold-carousel/internal/fold-stage.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/fold-carousel/internal/fold-stage.tsx"
+        },
+        {
+          "path": "src/registry/fold-carousel/internal/panels.utils.ts",
+          "type": "registry:ui",
+          "target": "components/ui/fold-carousel/internal/panels.utils.ts"
+        },
+        {
+          "path": "src/registry/fold-carousel/internal/slide-layer.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/fold-carousel/internal/slide-layer.tsx"
+        },
+        {
+          "path": "src/registry/fold-carousel/internal/smoothstep.utils.ts",
+          "type": "registry:ui",
+          "target": "components/ui/fold-carousel/internal/smoothstep.utils.ts"
+        },
+        {
+          "path": "src/registry/fold-carousel/internal/use-fold-engine.ts",
+          "type": "registry:ui",
+          "target": "components/ui/fold-carousel/internal/use-fold-engine.ts"
+        },
+        {
+          "path": "src/registry/fold-carousel/internal/use-leaf.ts",
+          "type": "registry:ui",
+          "target": "components/ui/fold-carousel/internal/use-leaf.ts"
+        },
+        {
+          "path": "src/registry/fold-carousel/internal/wrap.utils.ts",
+          "type": "registry:ui",
+          "target": "components/ui/fold-carousel/internal/wrap.utils.ts"
+        }
+      ]
+    }
+  ]
+}
