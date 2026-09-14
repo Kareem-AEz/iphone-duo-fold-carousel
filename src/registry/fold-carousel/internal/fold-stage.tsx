@@ -1,4 +1,4 @@
-import type { ComponentProps } from "react";
+import type { ComponentProps, CSSProperties } from "react";
 import { cn } from "cn";
 
 import { DEFAULTS } from "../config";
@@ -10,6 +10,7 @@ type FoldStageProps = ComponentProps<"div"> & {
   depth: number;
   /** Mirrors the fold, so the right half turns onto a still left half. */
   mirrored?: boolean;
+  bezelColor?: string;
 };
 
 /**
@@ -20,16 +21,22 @@ export function FoldStage({
   panelWidth = DEFAULTS.panelWidth,
   depth,
   mirrored = false,
+  bezelColor = DEFAULTS.bezelColor,
   className,
   style,
   children,
   ...props
 }: FoldStageProps) {
+  // A custom property, so the leaf bodies and slides inside read this frame's colour without
+  // passing it down. React's style type has no custom properties, hence the cast.
+  const bezel = { "--fold-bezel": bezelColor } as CSSProperties;
+
   return (
     <div
       // Slide layers read this to flip their content back, so the slide never mirrors.
       data-mirrored={mirrored || undefined}
       style={{
+        ...bezel,
         fontSize: panelWidth,
         // The origin stays centred, on the hinge, which `useLeaf` assumes.
         perspective: panels(depth),

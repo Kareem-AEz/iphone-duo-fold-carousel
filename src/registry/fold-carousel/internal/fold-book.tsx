@@ -58,11 +58,11 @@ export function FoldBook({
         <SlideLayer slide={incoming} left={panels(0)} top={leaf.screenTop} />
       </motion.div>
 
-      {/* The leaf's body. Black, so the slivers the magnified fold reaches past the screen
-          read as bezel. */}
+      {/* The leaf's body, in the bezel colour, so the slivers the magnified fold reaches past
+          the screen read as bezel. */}
       <motion.div
         style={{ rotateY: angle, clipPath: BODY_CLIP, ...half }}
-        className="origin-right bg-black"
+        className="origin-right bg-(--fold-bezel)"
       />
 
       <FoldFace
@@ -71,6 +71,7 @@ export function FoldBook({
         slide={outgoing}
         clipPath={leaf.frontClip}
         tilt={leaf.frontTilt}
+        overhangsStillHalf
       />
 
       {/* The still half. Painted after the leaf's front so it covers that edge instead of

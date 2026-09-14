@@ -16,6 +16,8 @@ export type FoldVariantProps = ComponentProps<"div"> & {
   panelWidth?: string;
   /** Perspective distance, in panel widths. Must stay above 1. */
   depth?: number;
+  /** Any CSS colour. Shows on a leaf's edge mid-turn, and behind a slide until it loads. */
+  bezelColor?: string;
   /** Folds the right half onto the left instead. Only the geometry mirrors, not the slide. */
   mirrored?: boolean;
 };

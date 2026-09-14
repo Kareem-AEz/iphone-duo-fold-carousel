@@ -14,7 +14,7 @@ export const HINGE_OVERLAP = 0.0625;
 
 /**
  * A leaf body's clip: trimmed by the hinge overlap on every edge but the hinge. Face edges
- * are soft, so a black body reaching them shows through as a dark hairline.
+ * are soft, so a body reaching them shows through as a hairline in the bezel colour.
  */
 export const BODY_CLIP = `inset(${HINGE_OVERLAP}rem 0 ${HINGE_OVERLAP}rem ${HINGE_OVERLAP}rem)`;
 

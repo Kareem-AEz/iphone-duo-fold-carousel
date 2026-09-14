@@ -13,6 +13,8 @@ export const DEFAULTS = {
   duration: 0.8,
   /** Whether the last slide folds on to the first. */
   loop: true,
+  /** Any CSS colour. Shows on a leaf's edge mid-turn, and behind a slide until it loads. */
+  bezelColor: "black",
 };
 
 /** How the `door` variant staggers its two leaves. */

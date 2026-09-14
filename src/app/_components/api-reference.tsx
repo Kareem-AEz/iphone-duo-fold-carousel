@@ -56,6 +56,13 @@ const FRAME_PROPS: ApiRow[] = [
     description:
       "Perspective distance, in panel widths. Lower is more dramatic. Must stay above 1.",
   },
+  {
+    name: "bezelColor",
+    type: "string",
+    defaultValue: `"${DEFAULTS.bezelColor}"`,
+    description:
+      "Any CSS color. Shows on a leaf's edge mid-turn, and behind a slide until it loads.",
+  },
 ];
 
 const HOOK_VALUES: ApiRow[] = [
