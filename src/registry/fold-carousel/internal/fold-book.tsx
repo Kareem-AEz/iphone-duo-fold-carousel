@@ -71,7 +71,6 @@ export function FoldBook({
         slide={outgoing}
         clipPath={leaf.frontClip}
         tilt={leaf.frontTilt}
-        overhangsStillHalf
       />
 
       {/* The still half. Painted after the leaf's front so it covers that edge instead of

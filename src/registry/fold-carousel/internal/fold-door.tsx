@@ -80,7 +80,6 @@ export function FoldDoor({
         slide={outgoing}
         clipPath={outgoingLeaf.frontClip}
         tilt={outgoingLeaf.frontTilt}
-        overhangsStillHalf
       />
 
       {/* Painted last, so the back comes down on top of the still half instead of meeting

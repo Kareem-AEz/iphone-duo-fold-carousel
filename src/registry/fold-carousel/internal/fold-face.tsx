@@ -35,7 +35,6 @@ type BlurLayerProps = {
   screenTop: string;
   tilt: MotionValue<number>;
   layer: (typeof BLUR_LAYERS)[number];
-  bezelStopsAtHinge: boolean;
 };
 
 /**
@@ -49,7 +48,6 @@ function BlurLayer({
   screenTop,
   tilt,
   layer,
-  bezelStopsAtHinge,
 }: BlurLayerProps) {
   const opacity = useTransform(tilt, [layer.from, layer.to], [0, 1]);
 
@@ -63,12 +61,7 @@ function BlurLayer({
       }}
       className="absolute inset-0"
     >
-      <SlideLayer
-        slide={slide}
-        left={slideLeft}
-        top={screenTop}
-        bezelStopsAtHinge={bezelStopsAtHinge}
-      />
+      <SlideLayer slide={slide} left={slideLeft} top={screenTop} />
     </motion.div>
   );
 }
@@ -85,8 +78,6 @@ type FoldFaceProps = {
   /** How far the layer hangs above and below the frame, to hold the magnified fold. */
   layerInset: string;
   screenTop: string;
-  /** Its reach past the hinge lies on the still half, which carries the same slide. */
-  overhangsStillHalf?: boolean;
 };
 
 /**
@@ -101,7 +92,6 @@ export function FoldFace({
   layerWidth,
   layerInset,
   screenTop,
-  overhangsStillHalf = false,
 }: FoldFaceProps) {
   // The slide spans both halves, so shifting it by a panel picks which half shows.
   const slideLeft = side === "left" ? panels(0) : panels(-1, HINGE_OVERLAP);
@@ -132,12 +122,7 @@ export function FoldFace({
       // face swung past the hinge would paint its other half over the frame.
       className="absolute overflow-hidden"
     >
-      <SlideLayer
-        slide={slide}
-        left={slideLeft}
-        top={screenTop}
-        bezelStopsAtHinge={overhangsStillHalf}
-      />
+      <SlideLayer slide={slide} left={slideLeft} top={screenTop} />
 
       {/* Progressive blur. CSS allows one radius per element, so the shader's per-pixel ramp
           becomes stacked copies. Each spans the whole layer, so the blur spreads into the
@@ -152,7 +137,6 @@ export function FoldFace({
             slideLeft={slideLeft}
             screenTop={screenTop}
             tilt={tilt}
-            bezelStopsAtHinge={overhangsStillHalf}
           />
         ))}
 
