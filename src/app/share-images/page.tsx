@@ -12,7 +12,13 @@ export const metadata: Metadata = {
  * The leaf nearly edge-on, so its shade is a thin band and the next slide shows. Earlier in
  * the turn, the leaf still covers the next slide under a dark shade.
  */
-const PROGRESS = 0.45;
+const OG_PROGRESS = 0.45;
+
+/**
+ * Earlier, so the leaf's slant and magnification carry the wide banner, where the photo
+ * alone would read as two slides side by side.
+ */
+const BANNER_PROGRESS = 0.38;
 
 const [outgoing, incoming] = DEMO_SLIDES;
 
@@ -23,7 +29,7 @@ const [outgoing, incoming] = DEMO_SLIDES;
 export default function ShareImagesPage() {
   return (
     <main className="flex flex-col items-start">
-      {/* The banner is transparent, so the page drops its white. */}
+      {/* The banner's rounded corners sit on a transparent capture, so the page drops its white. */}
       <style>{"body { background: transparent; }"}</style>
 
       <section
@@ -39,7 +45,7 @@ export default function ShareImagesPage() {
           </p>
         </div>
         <FrozenFold
-          progress={PROGRESS}
+          progress={OG_PROGRESS}
           outgoing={outgoing}
           incoming={incoming}
           panelWidth="270px"
@@ -48,13 +54,13 @@ export default function ShareImagesPage() {
 
       <section
         id="banner"
-        className="flex h-[400px] w-[1280px] items-center justify-center"
+        className="bg-background flex h-[440px] w-[1280px] items-center justify-center rounded-3xl"
       >
         <FrozenFold
-          progress={PROGRESS}
+          progress={BANNER_PROGRESS}
           outgoing={outgoing}
           incoming={incoming}
-          panelWidth="240px"
+          panelWidth="290px"
         />
       </section>
     </main>
