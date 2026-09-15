@@ -1,3 +1,5 @@
+![A forest photo folding away to uncover the next slide, like a page turning between two panels](./.github/banner.png)
+
 # Fold Carousel
 
 A carousel that folds from one slide to the next, like a two-panel phone. The image stays flat and the frame changes shape around it with clipping, blur, and shading.

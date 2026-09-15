@@ -13,9 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://fold-carousel.vercel.app"),
   title: "Fold Carousel",
   description:
     "A carousel that folds like a two-panel phone. A shadcn registry component built with Motion.",
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
