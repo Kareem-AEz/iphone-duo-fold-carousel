@@ -61,7 +61,7 @@ const FRAME_PROPS: ApiRow[] = [
     type: "string",
     defaultValue: `"${DEFAULTS.bezelColor}"`,
     description:
-      "Any CSS color. Shows on a leaf's edge mid-turn, and behind a slide until it loads.",
+      "Any CSS color. Shows on a leaf's edge mid-turn, and in place of a slide until its images have loaded.",
   },
 ];
 

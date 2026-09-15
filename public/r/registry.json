@@ -92,6 +92,11 @@
           "target": "components/ui/fold-carousel/internal/use-leaf.ts"
         },
         {
+          "path": "src/registry/fold-carousel/internal/use-ready-slides.ts",
+          "type": "registry:ui",
+          "target": "components/ui/fold-carousel/internal/use-ready-slides.ts"
+        },
+        {
           "path": "src/registry/fold-carousel/internal/wrap.utils.ts",
           "type": "registry:ui",
           "target": "components/ui/fold-carousel/internal/wrap.utils.ts"

@@ -1,9 +1,8 @@
-import type { ReactNode } from "react";
-
+import type { Slide } from "./fold-carousel.types";
 import { panels } from "./panels.utils";
 
 type SlideLayerProps = {
-  slide: ReactNode;
+  slide: Slide;
   /** Where the slide's left edge sits in the parent, as a CSS length. */
   left: string;
   /** Where the slide's top edge sits in the parent, as a CSS length. */
@@ -34,11 +33,16 @@ export function SlideLayer({
     >
       {/* `text-base` puts the font size back from a panel wide to `1rem`. Not `initial`,
           which is a fixed 16px and ignores a page that sizes its own root. The child is
-          stretched to fill, so `img` and `next/image` land the same way. Its own background
-          is the bezel, which the photo hides once it paints. On a layer or a wrapper, the
-          same colour shows through the layer's edge pixel as a line. */}
-      <div className="size-full text-base *:size-full *:bg-(--fold-bezel) *:object-cover">
-        {slide}
+          stretched to fill, so `img` and `next/image` land the same way. Until the slide is
+          ready, the copy is solid bezel and the slide is invisible but still loading. Never
+          both: a background under an image shows through the clipped edges as a line, and
+          Chrome paints an image's own background until it has fully loaded. */}
+      <div
+        data-slide-index={slide.index}
+        data-ready={slide.ready || undefined}
+        className="size-full text-base *:size-full *:object-cover not-data-ready:bg-(--fold-bezel) not-data-ready:*:opacity-0"
+      >
+        {slide.content}
       </div>
     </div>
   );

@@ -13,7 +13,10 @@ export const DEFAULTS = {
   duration: 0.8,
   /** Whether the last slide folds on to the first. */
   loop: true,
-  /** Any CSS colour. Shows on a leaf's edge mid-turn, and behind a slide until it loads. */
+  /**
+   * Any CSS colour. Shows on a leaf's edge mid-turn, and in place of a slide until its images
+   * have loaded.
+   */
   bezelColor: "black",
 };
 

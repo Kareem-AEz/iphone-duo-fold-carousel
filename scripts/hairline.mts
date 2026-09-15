@@ -162,9 +162,16 @@ const STEPS = {
   },
 } satisfies Record<string, (carousel: Locator, page: Page) => Promise<void>>;
 
-/** Screenshots the frame with a margin of page around it, saves it, and measures its edges. */
+/**
+ * Screenshots the frame with a margin of page around it, saves it, and measures its edges.
+ * Waits until every slide the frame draws is ready, so no copy is still showing the bezel.
+ */
 async function capture(page: Page, frame: Locator, scale: number, file: string) {
   await frame.scrollIntoViewIfNeeded();
+  await frame
+    .locator("[data-slide-index]:not([data-ready])")
+    .first()
+    .waitFor({ state: "detached", timeout: 10_000 });
   const box = await frame.boundingBox();
   if (!box) throw new Error("The frame is not rendered");
 

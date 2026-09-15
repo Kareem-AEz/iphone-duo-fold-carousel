@@ -4,6 +4,8 @@ import {
   type ComponentProps,
   type KeyboardEvent,
   type ReactNode,
+  useImperativeHandle,
+  useRef,
   useState,
 } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
@@ -23,9 +25,14 @@ import {
   FoldCarouselContext,
   useFoldCarouselContext,
 } from "./internal/fold-carousel.context";
-import type { Fold, FoldVariantProps } from "./internal/fold-carousel.types";
+import type {
+  Fold,
+  FoldVariantProps,
+  Slide,
+} from "./internal/fold-carousel.types";
 import { FoldDoor } from "./internal/fold-door";
 import { useFoldEngine } from "./internal/use-fold-engine";
+import { useReadySlides } from "./internal/use-ready-slides";
 import { wrap } from "./internal/wrap.utils";
 import { useFoldCarousel } from "./use-fold-carousel";
 
@@ -144,24 +151,42 @@ export type FoldCarouselFrameProps = Omit<
 /** The folding picture. Reads its slides and progress from the surrounding `FoldCarousel`. */
 export function FoldCarouselFrame({
   variant = "door",
+  ref,
   ...props
 }: FoldCarouselFrameProps) {
   const { slides, fold, progress } = useFoldCarouselContext();
+  // The frame looks inside its own stage for the slides' images, and a `ref` passed in still
+  // gets the same element.
+  const stage = useRef<HTMLDivElement>(null);
+  useImperativeHandle<HTMLDivElement | null, HTMLDivElement | null>(
+    ref,
+    () => stage.current,
+  );
+
+  const outgoingIndex = wrap(fold.from, slides.length);
+  const incomingIndex = wrap(fold.from + fold.direction, slides.length);
+  const ready = useReadySlides(stage, outgoingIndex, incomingIndex);
+
   if (!slides.length) return null;
 
-  const at = (slide: number) => slides[wrap(slide, slides.length)];
+  const slideAt = (index: number): Slide => ({
+    content: slides[index],
+    index,
+    ready: ready.has(index),
+  });
   const Variant = VARIANTS[variant];
 
   return (
     <Variant
       role="group"
       aria-roledescription="slide"
-      aria-label={`${wrap(fold.from, slides.length) + 1} of ${slides.length}`}
+      aria-label={`${outgoingIndex + 1} of ${slides.length}`}
       data-slot="fold-carousel-frame"
       {...props}
+      ref={stage}
       progress={progress}
-      outgoing={at(fold.from)}
-      incoming={at(fold.from + fold.direction)}
+      outgoing={slideAt(outgoingIndex)}
+      incoming={slideAt(incomingIndex)}
       mirrored={fold.direction < 0}
     />
   );

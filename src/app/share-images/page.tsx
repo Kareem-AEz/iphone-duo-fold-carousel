@@ -20,7 +20,9 @@ const OG_PROGRESS = 0.45;
  */
 const BANNER_PROGRESS = 0.38;
 
-const [outgoing, incoming] = DEMO_SLIDES;
+// Ready from the first render, since the capture script waits for every image to decode.
+const outgoing = { content: DEMO_SLIDES[0], index: 0, ready: true };
+const incoming = { content: DEMO_SLIDES[1], index: 1, ready: true };
 
 /**
  * The share images, drawn by the real component at their exact pixel sizes.

@@ -1,12 +1,22 @@
 import type { ComponentProps, ReactNode } from "react";
 import type { MotionValue } from "motion/react";
 
+/** A slide as the frame draws it. */
+export type Slide = {
+  /** The node from `slides`. */
+  content: ReactNode;
+  /** Its place in `slides`. Every copy carries it, so the frame can find the slide's images. */
+  index: number;
+  /** Whether its images have loaded and decoded. Until then every copy shows the bezel. */
+  ready: boolean;
+};
+
 /** What every variant takes, so the frame can swap one for another. */
 export type FoldVariantProps = ComponentProps<"div"> & {
   /** The slide on screen, painted once across both halves. */
-  outgoing: ReactNode;
+  outgoing: Slide;
   /** The slide coming in. By the end of the turn it fills the frame. */
-  incoming: ReactNode;
+  incoming: Slide;
   /**
    * 0 with `outgoing` flat, 1 once `incoming` fills the frame, pixel for pixel what 0 draws
    * with the slides advanced. That match is what lets the carousel swap slides unseen.
@@ -16,7 +26,10 @@ export type FoldVariantProps = ComponentProps<"div"> & {
   panelWidth?: string;
   /** Perspective distance, in panel widths. Must stay above 1. */
   depth?: number;
-  /** Any CSS colour. Shows on a leaf's edge mid-turn, and behind a slide until it loads. */
+  /**
+   * Any CSS colour. Shows on a leaf's edge mid-turn, and in place of a slide until its images
+   * have loaded.
+   */
   bezelColor?: string;
   /** Folds the right half onto the left instead. Only the geometry mirrors, not the slide. */
   mirrored?: boolean;

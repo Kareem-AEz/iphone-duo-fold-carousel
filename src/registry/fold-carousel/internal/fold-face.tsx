@@ -1,9 +1,9 @@
-import { type ReactNode, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
 import { type MotionValue, motion, useTransform } from "motion/react";
 
 import { SHADE } from "../config";
 import { BLUR_LAYERS, shadeAlpha, shadeTurn } from "./face-ramps.utils";
-import type { Side } from "./fold-carousel.types";
+import type { Side, Slide } from "./fold-carousel.types";
 import { HINGE_OVERLAP, panels } from "./panels.utils";
 import { SlideLayer } from "./slide-layer";
 
@@ -29,7 +29,7 @@ const SHADE_GRADIENT: Record<Side, string> = {
 const subscribe = () => () => {};
 
 type BlurLayerProps = {
-  slide: ReactNode;
+  slide: Slide;
   side: Side;
   slideLeft: string;
   screenTop: string;
@@ -68,7 +68,7 @@ function BlurLayer({
 
 type FoldFaceProps = {
   /** The slide this face carries. Its side of the hinge picks which half shows. */
-  slide: ReactNode;
+  slide: Slide;
   side: Side;
   /** The face's outline, from `useLeaf`. Empty while the face points away. */
   clipPath: MotionValue<string>;
