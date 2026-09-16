@@ -8,6 +8,7 @@ import { ControlsExample } from "@/app/_components/examples/controls-example";
 import { DEMO_SLIDES } from "@/app/_components/examples/demo-slides";
 import { DoorExample } from "@/app/_components/examples/door-example";
 import { readExampleCode } from "@/app/_components/examples/example-code.query";
+import { HowItWorks } from "@/app/_components/how-it-works/how-it-works";
 import { SiteFooter } from "@/app/_components/site-footer";
 import { SiteHeader } from "@/app/_components/site-header";
 
@@ -80,6 +81,15 @@ export default async function Home() {
               <ControlsExample slides={DEMO_SLIDES} />
             </Example>
           </div>
+        </Section>
+
+        <Section title="How it works">
+          <p className="text-muted-foreground text-sm text-pretty">
+            The slide never rotates. Each face stays flat and is clipped to the
+            outline a turning leaf would have, then blurred and shaded by how
+            far it has tilted. Drag to scrub one fold.
+          </p>
+          <HowItWorks slides={DEMO_SLIDES} />
         </Section>
 
         <Section title="API">
