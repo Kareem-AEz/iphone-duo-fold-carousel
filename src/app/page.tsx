@@ -11,6 +11,7 @@ import { readExampleCode } from "@/app/_components/examples/example-code.query";
 import { HowItWorks } from "@/app/_components/how-it-works/how-it-works";
 import { SiteFooter } from "@/app/_components/site-footer";
 import { SiteHeader } from "@/app/_components/site-header";
+import { YourPhotos } from "@/app/_components/your-photos/your-photos";
 
 const INSTALL =
   "npx shadcn@latest add Kareem-AEz/iphone-duo-fold-carousel/fold-carousel";
@@ -81,6 +82,10 @@ export default async function Home() {
               <ControlsExample slides={DEMO_SLIDES} />
             </Example>
           </div>
+        </Section>
+
+        <Section title="Try your photos">
+          <YourPhotos slides={DEMO_SLIDES} />
         </Section>
 
         <Section title="How it works">

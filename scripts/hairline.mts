@@ -90,7 +90,8 @@ async function measureEdges({
   frame: Rect;
   gap: number;
 }) {
-  const blob = await (await fetch(`data:image/png;base64,${png}`)).blob();
+  // Decoded by hand, since the site's CSP blocks `fetch` on a `data:` URL.
+  const blob = new Blob([Uint8Array.from(atob(png), (char) => char.charCodeAt(0))]);
   const bitmap = await createImageBitmap(blob);
   const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
   const context = canvas.getContext("2d");
